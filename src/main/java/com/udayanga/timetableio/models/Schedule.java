@@ -1,7 +1,6 @@
 package com.udayanga.timetableio.models;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "schedules")
@@ -11,27 +10,45 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "moduleName")
-    private String moduleName;
-
-    @Column(name = "lecturerName")
-    private String lecturerName;
-
-    @Column(name = "classRoomID")
-    private String classRoomID;
-
-    @Column(name = "batchID")
-    private String batchID;
-
     @Column(name = "startTime")
-    private Date startTime;
+    private String startTime;
 
     @Column(name = "endTime")
-    private Date endTime;
+    private String endTime;
+
 
     public Schedule() {
 
     }
 
-	...
+    public Schedule(String startTime, String endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Schedules [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + "]";
+    }
 }
