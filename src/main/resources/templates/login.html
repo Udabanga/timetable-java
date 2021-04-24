@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body has-text-centered">
+        <div class="card-3d">
+            <img src="../static/images/logo.svg" th:src="@{/images/logo.svg}" width="325px"/>
+            <form th:action="@{/api/auth/signin}" method="post">
+                <div class="field">
+                    <div class="control">
+                        <input
+                                class="input is-medium is-rounded"
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                                autocomplete="username"
+                                required
+                        />
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input
+                                class="input is-medium is-rounded"
+                                type="password"
+                                name="password"
+                                placeholder="********"
+                                autocomplete="current-password"
+                                required
+                        />
+                    </div>
+                </div>
+                <br/>
+                <article th:if="${param.error}" class="message is-danger">
+                    <div class="message-header">
+                        <p>Invalid username or password.</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                </article>
+                <br/>
+                <button
+                        class="button is-block is-fullwidth is-primary is-medium is-rounded"
+                        type="submit"
+                        value="login"
+                >
+                    Login
+                </button>
+            </form>
+            <br/>
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <a th:href="@{/}" href="index.html">Go Back</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</section>
+</body>
+</html>

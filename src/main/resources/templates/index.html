@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TimetableIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="card-3d">
+          <div class="has-text-centered">
+            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}" width="325px" />
+          </div>
+          <div class="field">
+            <label class="label">Faculty</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select>
+                  <option>Computing</option>
+                  <option>Business</option>
+                  <option>Law</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column"><a th:href="@{/viewBatchTimetable}" href="viewBatchTimetable.html" class="button is-primary is-fullwidth is-rounded">Batch Timetable</a></div>
+            <div class="column"><a th:href="@{/viewLecturerTimetable}" href="viewLecturerTimetable.html" class="button is-primary is-fullwidth is-rounded">Lecturer Timetable</a></div>
+          </div>
+          <div class="has-text-centered">
+            <a th:href="@{/login}" href="login.html">Login</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

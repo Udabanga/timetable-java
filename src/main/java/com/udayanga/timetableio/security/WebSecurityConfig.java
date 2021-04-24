@@ -17,12 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.udayanga.timetableio.security.jwt.AuthEntryPointJwt;
 import com.udayanga.timetableio.security.jwt.AuthTokenFilter;
 import com.udayanga.timetableio.security.services.UserDetailsServiceImpl;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -59,7 +58,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/admin/**").hasAuthority("Admin")
+                .anyRequest().authenticated()
+
+                .and()
+                    .formLogin()
+                        .loginPage("/api/auth/signin")
+                        .defaultSuccessUrl("/loginSuccessful")
+                        .failureUrl("/login?error")
+                        .permitAll();
+
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .failureUrl("/login")
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/index");
+
+//                .antMatchers("/admin/**").hasAuthority("Admin")
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+//                .permitAll()
+//                .and()
+//                .logout().permitAll();
+
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
