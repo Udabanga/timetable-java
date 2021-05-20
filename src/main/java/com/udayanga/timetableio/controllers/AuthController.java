@@ -1,12 +1,15 @@
 package com.udayanga.timetableio.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
+import com.udayanga.timetableio.model.ERole;
+import com.udayanga.timetableio.model.Role;
+import com.udayanga.timetableio.model.User;
+import com.udayanga.timetableio.repository.RoleRepository;
+import com.udayanga.timetableio.payload.request.LoginRequest;
+import com.udayanga.timetableio.payload.request.SignupRequest;
+import com.udayanga.timetableio.payload.response.MessageResponse;
+import com.udayanga.timetableio.repository.UserRepository;
+import com.udayanga.timetableio.security.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,28 +17,19 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.udayanga.timetableio.models.ERole;
-import com.udayanga.timetableio.models.Role;
-import com.udayanga.timetableio.models.User;
-import com.udayanga.timetableio.payload.request.LoginRequest;
-import com.udayanga.timetableio.payload.request.SignupRequest;
-import com.udayanga.timetableio.payload.response.JwtResponse;
-import com.udayanga.timetableio.payload.response.MessageResponse;
-import com.udayanga.timetableio.repository.RoleRepository;
-import com.udayanga.timetableio.repository.UserRepository;
-import com.udayanga.timetableio.security.jwt.JwtUtils;
-import com.udayanga.timetableio.security.services.UserDetailsImpl;
+import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -48,69 +42,35 @@ public class AuthController {
     @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
-    JwtUtils jwtUtils;
-
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid LoginRequest loginRequest) {
+    public MessageResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        if (userRepository.existsByUsername(loginRequest.getUsername())) {
+        if (userRepository.existsByEmail(loginRequest.getEmail())) {
             try {
                 Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                String jwt = jwtUtils.generateJwtToken(authentication);
 
-                UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+                AuthenticatedUser userDetails = (AuthenticatedUser) authentication.getPrincipal();
                 List<String> roles = userDetails.getAuthorities().stream()
                         .map(item -> item.getAuthority())
                         .collect(Collectors.toList());
 
-                return ResponseEntity.ok(new JwtResponse(jwt,
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles));
+                return new MessageResponse(userDetails.getUser().getName(), userDetails.getUser().getEmail(), userDetails.getUser().getId(), roles);
+            } catch (Exception e) {
+                return new MessageResponse(e.getMessage());
+//                return new MessageResponse("Error: Incorrect Password!");
             }
-            catch (Exception e){
-                return ResponseEntity
-                        .badRequest()
-                        .body(new MessageResponse("Error: Incorrect Password!"));
-            }
-        }
-        else {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username does not exit!"));
+        } else {
+            return new MessageResponse("Error: Username does not exit!");
         }
 
-
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        String jwt = jwtUtils.generateJwtToken(authentication);
-//
-//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//        List<String> roles = userDetails.getAuthorities().stream()
-//                .map(item -> item.getAuthority())
-//                .collect(Collectors.toList());
-//
-//        return ResponseEntity.ok(new JwtResponse(jwt,
-//                userDetails.getId(),
-//                userDetails.getUsername(),
-//                userDetails.getEmail(),
-//                roles));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
@@ -119,7 +79,8 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(
+                signUpRequest.getName(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -139,8 +100,8 @@ public class AuthController {
                         roles.add(adminRole);
 
                         break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                    case "lecturer":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_LECTURER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
 

@@ -1,9 +1,9 @@
 package com.udayanga.timetableio.repository;
 
-import java.util.List;
-
-import com.udayanga.timetableio.models.Batch;
+import com.udayanga.timetableio.model.Batch;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BatchRepository extends JpaRepository<Batch, Long> {
 }

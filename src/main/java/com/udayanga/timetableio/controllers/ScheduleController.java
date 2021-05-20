@@ -1,43 +1,32 @@
 package com.udayanga.timetableio.controllers;
 
+import com.udayanga.timetableio.model.Schedule;
+import com.udayanga.timetableio.repository.ScheduleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.udayanga.timetableio.models.Schedule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.udayanga.timetableio.repository.ScheduleRepository;
-
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class ScheduleController {
+public class    ScheduleController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+
 
     @GetMapping("/schedules")
     public ResponseEntity<List<Schedule>> getAllSchedules(@RequestParam(required = false) String startTime) {
         try {
             List<Schedule> schedules = new ArrayList<Schedule>();
 
-            if (startTime == null)
-                scheduleRepository.findAll().forEach(schedules::add);
-            else
-                scheduleRepository.findByStartTime(startTime).forEach(schedules::add);
+            scheduleRepository.findAll().forEach(schedules::add);
 
             if (schedules.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -64,7 +53,7 @@ public class ScheduleController {
     public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
         try {
             Schedule _schedule = scheduleRepository
-                    .save(new Schedule(schedule.getStartTime(), schedule.getEndTime()));
+                    .save(new Schedule(schedule.getDate(), schedule.getStartTime(), schedule.getEndTime(), schedule.getClassroom(), schedule.getModule(), schedule.getUser(), schedule.getBatches()));
             return new ResponseEntity<>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

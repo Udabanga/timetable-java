@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Batch List</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="card-3d card-100-width">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-rounded is-text" th:href="@{/admin}" href="admin.html"><ion-icon size="large" name="chevron-back-circle-outline"/></a>
+                    </div>
+                    <div class="level-item">
+                        <h1 class="title">Items</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs is-boxed">
+                <ul>
+                    <li><a th:href="@{/admin/lecturerList}" href="lecturerList.html">Lecturers</a></li>
+                    <li class="is-active"><a>Batches</a></li>
+                    <li><a th:href="@{/admin/moduleList}" href="moduleList.html">Modules</a></li>
+                    <li><a th:href="@{/admin/classroomList}" href="classroomList.html">Classrooms</a></li>
+                </ul>
+            </div>
+
+            <button class="button is-primary">Add Batch</button>
+
+            <br/>
+            <br/>
+
+            <table class="table is-fullwidth">
+                <thead>
+                <tr>
+                    <th title="ID">ID</th>
+                    <th title="BatchCode">Batch Code</th>
+                    <th title="Faculty">Faculty</th>
+                    <th title="Semester">Semester</th>
+                    <th title="Year">Year</th>
+                    <th title="Action">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>Com-2020-3y-2s</td>
+                    <td>Copmuting</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>
+                        <button class="button is-success">Edit</button>
+                        <button class="button is-danger">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>

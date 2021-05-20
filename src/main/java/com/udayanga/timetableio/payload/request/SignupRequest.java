@@ -1,13 +1,17 @@
 package com.udayanga.timetableio.payload.request;
 
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
-import javax.validation.constraints.*;
-
 public class SignupRequest {
+    @Id
+    int id;
     @NotBlank
     @Size(min = 3, max = 20)
-    private String username;
+    private String name;
 
     @NotBlank
     @Size(max = 50)
@@ -20,12 +24,36 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
-    public String getUsername() {
-        return username;
+    public SignupRequest() {
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public SignupRequest(String name, String email, Set<String> role) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
+
+    public SignupRequest(int id, String name, String email, Set<String> role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

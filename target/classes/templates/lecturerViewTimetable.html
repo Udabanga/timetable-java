@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8"/>
+  <title>TimetableIO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+  />
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<!--<body>-->
+<!--<div>-->
+<!--    <p>Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)</p>-->
+<!--    <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>-->
+<!--</div>-->
+<!--<h1>This is admin home page</h1>-->
+<!--</body>-->
+<body>
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="card-3d card-100-width">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <a class="button is-rounded is-text" th:href="@{/lecturer}" href="admin.html">
+              <ion-icon size="large" name="chevron-back-circle-outline"/>
+            </a>
+          </div>
+          <div class="level-item">
+            <h1 class="title">Items</h1>
+          </div>
+        </div>
+      </div>
+
+      <a class="button is-primary" th:href = "@{/showNewScheduleForm}">Add Schedule</a>
+
+      <br/>
+      <br/>
+
+      <table class="table is-fullwidth">
+        <thead>
+        <tr>
+          <th title="Date">Day</th>
+          <th title="Date">Date</th>
+          <th title="Start Time">Start Time</th>
+          <th title="End Time">End Time</th>
+          <th title="Classroom">Classroom</th>
+          <th title="Module">Module</th>
+          <th title="Lecturer">Lecturer</th>
+          <th title="Actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="schedule : ${listSchedules}">
+<!--          <td th:text="${#temporals.format(schedule.startTime, 'HH:mm')}"></td>-->
+<!--          <td th:text="${#temporals.format(schedule.endTime, 'HH:mm')}"></td>-->
+          <td th:text="${#dates.dayOfWeekName(schedule.date)}"></td>
+          <td th:text="${#dates.format(schedule.date, 'dd-MM-yyyy')}"></td>
+          <td th:text="${#dates.format(schedule.startTime, 'HH:mm')}"></td>
+          <td th:text="${#dates.format(schedule.endTime, 'HH:mm')}"></td>
+          <td th:text="${schedule.classroom?.id}"></td>
+          <td th:text="${schedule.module?.moduleName}"></td>
+          <td th:text="${schedule.user?.name}"></td>
+          <td>
+            <a class="button is-success" th:href="@{/showFormForUpdateSchedule/{id}(id=${schedule.id})}">Edit</a>
+            <a class="button is-danger" th:href="@{/deleteSchedule/{id}(id=${schedule.id})}">Delete</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal" id="addModal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Add Lecturer</p>
+          <button class="delete" data-bulma-modal="close" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!--                    <form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}">-->
+          <!--                    <form th:action="${add} ? @{/batches/add} : @{/batches/{batchId}/edit(batchId=${batch.id})}">-->
+          <div class="field">
+            <label class="label">Batch Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Faculty</label>
+            <div class="control">
+              <div class="select">
+                <select>
+                  <option>Computing</option>
+                  <option>Business</option>
+                  <option>Law</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Semester</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Year</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+
+          <button
+                  class="button is-block is-fullwidth is-primary is-medium is-rounded"
+                  type="submit"
+                  value="add"
+          >
+            Add
+          </button>
+          <!--                    </form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}-->
+          <!--                    ">-->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Add</button>
+          <button class="button" data-bulma-modal="close">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+* {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+:root {
+  --shadowDark: #D9DDE6;
+  --background: #E4E9F2;
+  --shadowLight: #EFF5FE;
+}
+
+body {
+  background: var(--background);
+}
+
+.hero-body {
+  justify-content: center;
+  background-image: url("../images/blob-scene.svg");
+  background-size: cover
+}
+
+.hero .tabs ul {
+  border-bottom-color: #dbdbdb;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  background-color: var(--background);
+}
+
+.tabs.is-boxed li.is-active a {
+  background-color: var(--background);
+  border-color: #dbdbdb;
+  border-bottom-color: var(--background);
+}
+
+.card-3d {
+  border-radius: 25px;
+  padding: 1.5rem;
+  box-shadow: 8px 8px 15px var(--shadowDark), -8px -8px 15px var(--shadowLight);
+  background-color: var(--background);
+}
+
+.card-100-width{
+  width: 100%;
+}
+
+input {
+  background: var(--shadowDark) !important;
+}
+
+a {
+  font-weight: 600;
+}

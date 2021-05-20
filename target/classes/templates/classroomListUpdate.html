@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>TimetableIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="card-3d">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-rounded is-text" th:href="@{/admin}" href="admin.html">
+                            <ion-icon size="large" name="chevron-back-circle-outline"/>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <h1 class="title">Edit</h1>
+                    </div>
+                </div>
+            </div>
+            <form action="#" th:action="@{/saveClassroom}" th:object="${classroom}" method="POST">
+
+
+                <input type="hidden" th:field="*{id}" />
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Building</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{building}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Floor</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{floor}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Room Number</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{roomNumber}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Type</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{type}">
+                    </div>
+                </div>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Update Classroom</button>
+            </form>
+            <br/>
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>

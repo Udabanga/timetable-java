@@ -1,13 +1,11 @@
 package com.udayanga.timetableio.repository;
 
-import java.util.Optional;
-
-import com.udayanga.timetableio.models.ERole;
-import com.udayanga.timetableio.models.Role;
+import com.udayanga.timetableio.model.ERole;
+import com.udayanga.timetableio.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
+import java.util.Optional;
 
 
 @Repository

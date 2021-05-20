@@ -1,6 +1,6 @@
 package com.udayanga.timetableio.controllers;
 
-import com.udayanga.timetableio.models.Classroom;
+import com.udayanga.timetableio.model.Classroom;
 import com.udayanga.timetableio.repository.ClassroomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

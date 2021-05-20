@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>TimetableIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="card-3d">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-rounded is-text" th:href="@{/admin}" href="admin.html">
+                            <ion-icon size="large" name="chevron-back-circle-outline"/>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <h1 class="title">Edit</h1>
+                    </div>
+                </div>
+            </div>
+            <form action="#" th:action="@{/updateUser}" th:object="${user}" method="POST">
+                <input type="hidden" th:field="*{id}" />
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Email</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{email}">
+
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Name</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{name}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Password</label>
+                        <input class="input is-medium is-rounded" type="text" th:field="*{password}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="checkbox" th:each="roleSelected: ${allRoles}">
+                        <label th:text="${roleSelected.name}"></label>
+                        <input th:field="*{role}" type="checkbox" th:checked="${user.role.contains(roleSelected.name)}" th:value="${roleSelected.name}"/>
+                    </div>
+                </div>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Edit Lecturer</button>
+            </form>
+            <br/>
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>

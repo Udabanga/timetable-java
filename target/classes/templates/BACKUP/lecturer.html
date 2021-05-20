@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lecturer</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="card-3d">
+
+            <div>
+                <div class="level">
+                    <div class="level-left">
+                        <h1 class="title">Lecturer Page</h1>
+                    </div>
+                    <div class="level-right">
+                        <p>Udayanga-Lecturer | &nbsp</p>
+                        <a th:href="@{/}" href="index.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <div class="columns">
+                            <div class="column is-narrow">
+                                <div class="" style="width: 75px;">
+                                    <p class="title is-6">ID: </p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="">
+                                    <p class="subtitle is-6"> L-COM-1</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column is-narrow">
+                                <div class="" style="width: 75px;">
+                                    <p class="title is-6">Email: </p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="">
+                                    <p class="subtitle is-6"> udayanga@timetable.io</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column is-narrow">
+                                <div class="" style="width: 75px;">
+                                    <p class="title is-6">First Name: </p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="">
+                                    <p class="subtitle is-6"> Udayanga Amarasena</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column is-narrow">
+                                <div class="" style="width: 75px;">
+                                    <p class="title is-6">Last Name: </p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="">
+                                    <p class="subtitle is-6"> Amarasena</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h1 class="title is-4">Items</h1>
+                    <div class="columns">
+                        <div class="column">
+                            <button class="">
+                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                                     width="100px"/>
+                                <p>Create Lecture</p>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button>
+                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                                     width="100px"/>
+                                <p>Your Timetable</p>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <h1 class="title is-4">Timetables</h1>
+                    <div class="block">
+                        <button class="button is-large is-fullwidth level-left">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                                 width="100px"/>
+                            <span>View Classroom Timetable</span>
+                        </button>
+                    </div>
+                    <div class="block">
+                        <button class="button is-large is-fullwidth level-left">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                                 width="100px"/>
+                            <span>View Classroom Timetable</span>
+                        </button>
+                    </div>
+                    <div class="block">
+                        <button class="button is-large is-fullwidth level-left">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                                 width="100px"/>
+                            <span>View Classroom Timetable</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
