@@ -7,15 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="timetable-eea" />
+        <module name="timetableio" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="timetable-eea" target="1.8" />
+      <module name="timetableio" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="timetable-eea" options="-parameters" />
+      <module name="timetableio" options="-parameters" />
     </option>
   </component>
 </project>

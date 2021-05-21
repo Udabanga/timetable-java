@@ -1,6 +1,7 @@
 package com.udayanga.timetableio.webController;
 
 import com.udayanga.timetableio.model.*;
+import com.udayanga.timetableio.model.Module;
 
 import com.udayanga.timetableio.repository.*;
 import com.udayanga.timetableio.security.AuthenticatedUser;
