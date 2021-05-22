@@ -1,6 +1,7 @@
 package com.udayanga.timetableio.controllers;
 
 
+import com.udayanga.timetableio.model.Batch;
 import com.udayanga.timetableio.model.ERole;
 import com.udayanga.timetableio.model.Role;
 import com.udayanga.timetableio.model.User;
@@ -11,6 +12,7 @@ import com.udayanga.timetableio.payload.response.MessageResponse;
 import com.udayanga.timetableio.repository.UserRepository;
 import com.udayanga.timetableio.security.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -118,5 +121,22 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        try {
+            List<User> users = new ArrayList<User>();
+
+            userRepository.findAll().forEach(users::add);
+
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

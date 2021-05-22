@@ -47,34 +47,23 @@ public class ScheduleControllerWeb {
     @PostMapping("/saveSchedule")
     public String saveSchedule(@ModelAttribute("schedule") Schedule schedule, Authentication authResult) throws ParseException {
         // save schedule to database
-
-//        Date date = schedule.getDate();
-//        Date tempStart = schedule.getStartTime();
-//        Date tempEnd = schedule.getEndTime();
-//
-//        Date startTime = new Date(schedule.getDate().getTime() + schedule.getStartTime().getTime());
-//        Date endTime = new Date(schedule.getDate().getTime() + schedule.getEndTime().getTime());
-
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(schedule.getStringDate());
 
         Date startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(schedule.getStringDate()+" "+ schedule.getStringStartTime());
         Date endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(schedule.getStringDate()+" "+ schedule.getStringEndTime());
 
-//        Schedule schedule1 = new Schedule();
-//        schedule1
         schedule.setDate(date);;
         schedule.setStartTime(startTime);
         schedule.setEndTime(endTime);
         scheduleService.saveSchedule(schedule);
-//        Classroom classroom, Module module, User user, Set< Batch > batches
 
         String role =  authResult.getAuthorities().toString();
 
         if(role.contains("ROLE_ADMIN")){
-            return "redirect:/admin/scheduleList";
+            return "admin";
         }
         else if(role.contains("ROLE_LECTURER")) {
-            return "lecturerViewTimetable";
+            return "lecturer";
         }
         else{
             return "login";
