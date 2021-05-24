@@ -1,9 +1,0 @@
-com\udayanga\timetableio\payload\request\LoginRequest.class
-com\udayanga\timetableio\controllers\AuthController.class
-com\udayanga\timetableio\payload\request\SignupRequest.class
-com\udayanga\timetableio\payload\response\MessageResponse.class
-com\udayanga\timetableio\repository\RoleRepository.class
-com\udayanga\timetableio\config\WebConfig.class
-com\udayanga\timetableio\repository\MessageRepository.class
-com\udayanga\timetableio\config\WebSecurityConfig.class
-com\udayanga\timetableio\repository\UserRepository.class

@@ -1,6 +1,7 @@
 package com.udayanga.timetableio.controllers;
 
 import com.udayanga.timetableio.model.Schedule;
+import com.udayanga.timetableio.model.Schedule;
 import com.udayanga.timetableio.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,46 +54,43 @@ public class    ScheduleController {
     public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
         try {
             Schedule _schedule = scheduleRepository
-                    .save(new Schedule(schedule.getDate(), schedule.getStartTime(), schedule.getEndTime(), schedule.getClassroom(), schedule.getModule(), schedule.getUser(), schedule.getBatches()));
+                    .save(new Schedule(schedule.getDate(), schedule.getEndTime(), schedule.getStartTime(), schedule.getStringDate(), schedule.getStringEndTime(), schedule.getStringStartTime(), schedule.getClassroom(), schedule.getModule(), schedule.getUser(), schedule.getBatches()));
             return new ResponseEntity<>(_schedule, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/schedules/{id}")
+    @PutMapping("/schedule/{id}")
     public ResponseEntity<Schedule> updateSchedule(@PathVariable("id") long id, @RequestBody Schedule schedule) {
         Optional<Schedule> scheduleData = scheduleRepository.findById(id);
 
         if (scheduleData.isPresent()) {
             Schedule _schedule = scheduleData.get();
-            _schedule.setStartTime(schedule.getStartTime());
+            _schedule.setDate(schedule.getDate());
             _schedule.setEndTime(schedule.getEndTime());
+            _schedule.setStartTime(schedule.getStartTime());
+            _schedule.setStringDate(schedule.getStringDate());
+            _schedule.setStringEndTime(schedule.getStringEndTime());
+            _schedule.setStringStartTime(schedule.getStringStartTime());
+            _schedule.setClassroom(schedule.getClassroom());
+            _schedule.setModule(schedule.getModule());
+            _schedule.setUser(schedule.getUser());
+            _schedule.setBatches(schedule.getBatches());
             return new ResponseEntity<>(scheduleRepository.save(_schedule), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    
     @DeleteMapping("/schedules/{id}")
-    public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable(value = "id") String id) {
         try {
-            scheduleRepository.deleteById(id);
+            scheduleRepository.deleteById(Long.parseLong(id));
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @DeleteMapping("/schedules")
-    public ResponseEntity<HttpStatus> deleteAllSchedules() {
-        try {
-            scheduleRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
 }

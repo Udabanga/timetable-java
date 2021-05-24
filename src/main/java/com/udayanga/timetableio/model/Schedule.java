@@ -17,6 +17,7 @@ public class Schedule {
 
     private  String stringDate, stringStartTime, stringEndTime;
 
+
     public String getStringDate() {
         return stringDate;
     }
@@ -95,6 +96,20 @@ public class Schedule {
         this.user = user;
         this.batches = batches;
     }
+
+    public Schedule(Date date, Date endTime, Date startTime,String stringDate,String stringEndTime, String stringStartTime, Classroom classroom, Module module, User user, Set<Batch> batches){
+        this.date = date;
+        this.endTime = endTime;
+        this.startTime = startTime;
+        this.stringDate = stringDate;
+        this.stringEndTime = stringEndTime;
+        this.stringStartTime = stringStartTime;
+        this.classroom = classroom;
+        this.module = module;
+        this.user = user;
+        this.batches = batches;
+    }
+
 
     public long getId() {
         return id;

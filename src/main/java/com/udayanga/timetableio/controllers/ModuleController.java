@@ -57,4 +57,28 @@ public class ModuleController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/modules/{id}")
+    public ResponseEntity<Module> updateModule(@PathVariable("id") long id, @RequestBody Module module) {
+        Optional<Module> moduleData = moduleRepository.findById(id);
+
+        if (moduleData.isPresent()) {
+            Module _module = moduleData.get();
+            _module.setModuleName(module.getModuleName());
+            return new ResponseEntity<>(moduleRepository.save(_module), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+
+    @DeleteMapping("/modules/{id}")
+    public ResponseEntity<HttpStatus> deleteModule(@PathVariable(value = "id") String id) {
+        try {
+            moduleRepository.deleteById(Long.parseLong(id));
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

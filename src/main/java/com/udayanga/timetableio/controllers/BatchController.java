@@ -1,6 +1,7 @@
 package com.udayanga.timetableio.controllers;
 
 import com.udayanga.timetableio.model.Batch;
+import com.udayanga.timetableio.model.Batch;
 import com.udayanga.timetableio.repository.BatchRepository;
 import com.udayanga.timetableio.services.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,70 +62,29 @@ public class BatchController {
         }
     }
 
-//    //Web
-//    @Autowired
-//    private BatchService batchService;
-//
-//    // display list of batchs
-////	@GetMapping("/")
-////	public String viewHomePage(Model model) {
-////		return findPaginated(1, "firstName", "asc", model);
-////	}
-//
-//    @GetMapping("/showNewBatchForm")
-//    public String showNewBatchForm(Model model) {
-//        // create model attribute to bind form data
-//        Batch batch = new Batch();
-//        model.addAttribute("batch", batch);
-//        return "new_batch";
-//    }
-//
-//    @PostMapping("/saveBatch")
-//    public String saveBatch(@ModelAttribute("batch") Batch batch) {
-//        // save batch to database
-//        batchService.saveBatch(batch);
-//        return "redirect:/admin/batchList";
-//    }
-//
-//    @GetMapping("/showFormForUpdateBatch/{id}")
-//    public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
-//
-//        // get batch from the service
-//        Batch batch = batchService.getBatchById(id);
-//
-//        // set batch as a model attribute to pre-populate the form
-//        model.addAttribute("batch", batch);
-//        return "update_batch";
-//    }
-//
-//    @GetMapping("/deleteBatch/{id}")
-//    public String deleteBatch(@PathVariable (value = "id") long id) {
-//
-//        // call delete batch method
-//        this.batchService.deleteBatchById(id);
-//        return "redirect:/admin/batchList";
-//    }
-//
-//
-//    @GetMapping("/page/{pageNo}")
-//    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
-//                                @RequestParam("sortField") String sortField,
-//                                @RequestParam("sortDir") String sortDir,
-//                                Model model) {
-//        int pageSize = 5;
-//
-//        Page<Batch> page = batchService.findPaginated(pageNo, pageSize, sortField, sortDir);
-//        List<Batch> listBatchs = page.getContent();
-//
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("totalItems", page.getTotalElements());
-//
-//        model.addAttribute("sortField", sortField);
-//        model.addAttribute("sortDir", sortDir);
-//        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-//
-//        model.addAttribute("listBatchs", listBatchs);
-//        return "batchList";
-//    }
+    @PutMapping("/batches/{id}")
+    public ResponseEntity<Batch> updateBatch(@PathVariable("id") long id, @RequestBody Batch batch) {
+        Optional<Batch> batchData = batchRepository.findById(id);
+
+        if (batchData.isPresent()) {
+            Batch _batch = batchData.get();
+            _batch.setBatchCode(batch.getBatchCode());
+            _batch.setFaculty(batch.getFaculty());
+            _batch.setSemester(batch.getSemester());
+            _batch.setYear(batch.getYear());
+            return new ResponseEntity<>(batchRepository.save(_batch), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/batches/{id}")
+    public ResponseEntity<HttpStatus> deleteBatch(@PathVariable(value = "id") String id) {
+        try {
+            batchRepository.deleteById(Long.parseLong(id));
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -1,10 +1,7 @@
 package com.udayanga.timetableio.controllers;
 
 
-import com.udayanga.timetableio.model.Batch;
-import com.udayanga.timetableio.model.ERole;
-import com.udayanga.timetableio.model.Role;
-import com.udayanga.timetableio.model.User;
+import com.udayanga.timetableio.model.*;
 import com.udayanga.timetableio.repository.RoleRepository;
 import com.udayanga.timetableio.payload.request.LoginRequest;
 import com.udayanga.timetableio.payload.request.SignupRequest;
@@ -22,10 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -137,6 +131,31 @@ public class AuthController {
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User module) {
+        Optional<User> userData = userRepository.findById(id);
+
+        if (userData.isPresent()) {
+            User _user = userData.get();
+            _user.setEmail(module.getEmail());
+            _user.setName(module.getName());
+            _user.setPassword(encoder.encode(module.getPassword()));
+            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable(value = "id") String id) {
+        try {
+            userRepository.deleteById(Integer.parseInt(id));
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
