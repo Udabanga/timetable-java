@@ -26,22 +26,27 @@ public class User
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(nullable=false)
-//	@NotEmpty()
+	@NotEmpty(message = "Name should not be blank")
 	private String name;
 	@Column(nullable=false, unique=true)
-	@NotEmpty
-	@Email(message="{errors.invalid_email}")
+	@NotEmpty(message = "Name should not be blank")
+	@Email(message="{Invalid email}")
 	private String email;
 	@Column(nullable=false)
-	@NotEmpty
-	@Size(min=4)
+	@NotEmpty(message = "Password should not be blank")
+	@Size(min=8, message="Password should be 8 to 32 characters long")
 	private String password;
+
+	private String confirmPassword;
+
+
 
 	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(
 			name="user_role",
 			joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
 			inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+	@NotEmpty
 	private Set<Role> roles;
 
 	public User(){}
@@ -57,6 +62,12 @@ public class User
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public User(int id, String name, String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
 	}
 
 	public Integer getId()

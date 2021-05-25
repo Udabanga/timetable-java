@@ -15,13 +15,6 @@
     />
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
 </head>
-<!--<body>-->
-<!--<div>-->
-<!--    <p>Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)</p>-->
-<!--    <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>-->
-<!--</div>-->
-<!--<h1>This is admin home page</h1>-->
-<!--</body>-->
 <body>
 <section class="hero is-fullheight">
     <div class="hero-body">
@@ -47,8 +40,7 @@
                 </ul>
             </div>
 
-            <!--            <button class="button is-primary" id="addButton">Add Batch</button>-->
-            <a class="button is-primary" th:href = "@{/showNewClassroomForm}">Add Batch</a>
+            <a class="button is-primary" th:href = "@{/showNewClassroomForm}">Add Classroom</a>
 
             <br/>
             <br/>
@@ -88,8 +80,6 @@
                     <button class="delete" data-bulma-modal="close" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
-                    <!--                    <form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}">-->
-                    <!--                    <form th:action="${add} ? @{/batches/add} : @{/batches/{batchId}/edit(batchId=${batch.id})}">-->
                     <div class="field">
                         <label class="label">Batch Name</label>
                         <div class="control">
@@ -128,8 +118,6 @@
                     >
                         Add
                     </button>
-                    <!--                    </form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}-->
-                    <!--                    ">-->
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success">Add</button>
@@ -140,70 +128,6 @@
     </div>
 </section>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-<script>
-    class BulmaModal {
-        constructor(selector) {
-            this.element = document.querySelector(selector)
-            this.close_data()
-        }
-
-        show() {
-            this.element.classList.toggle('is-active')
-            this.on_show()
-        }
-
-        close() {
-            this.element.classList.toggle('is-active')
-            this.on_close()
-        }
-
-        close_data() {
-            var modalClose = this.element.querySelectorAll("[data-bulma-modal='close'], .modal-background")
-            var that = this
-            modalClose.forEach(function (e) {
-                e.addEventListener("click", function () {
-
-                    that.element.classList.toggle('is-active')
-
-                    var event = new Event('modal:close')
-
-                    that.element.dispatchEvent(event);
-                })
-            })
-        }
-
-        on_show() {
-            var event = new Event('modal:show')
-
-            this.element.dispatchEvent(event);
-        }
-
-        on_close() {
-            var event = new Event('modal:close')
-
-            this.element.dispatchEvent(event);
-        }
-
-        addEventListener(event, callback) {
-            this.element.addEventListener(event, callback)
-        }
-    }
-
-    var button = document.querySelector("#addButton")
-    var model = new BulmaModal("#addModal")
-
-    button.addEventListener("click", function () {
-        model.show()
-    })
-
-    model.addEventListener('modal:show', function () {
-        console.log("opened")
-    })
-
-    model.addEventListener("modal:close", function () {
-        console.log("closed")
-    })
-</script>
 </body>
 </html>
 

@@ -135,14 +135,16 @@ public class AuthController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User module) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
             User _user = userData.get();
-            _user.setEmail(module.getEmail());
-            _user.setName(module.getName());
-            _user.setPassword(encoder.encode(module.getPassword()));
+            _user.setEmail(user.getEmail());
+            _user.setName(user.getName());
+            if(user.getPassword() != null) {
+                _user.setPassword(encoder.encode(user.getPassword()));
+            }
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

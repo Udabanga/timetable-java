@@ -14,10 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -45,14 +48,14 @@ public class UserControllerWeb {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") SignupRequest signUpRequest) {
-//        // save user to database
-//        userService.saveUser(user);
+    public String saveUser(@Valid @ModelAttribute("user") SignupRequest signUpRequest, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleRepository.findAll());
+            return "lecturerListAdd";
+        }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Email is already in use!"));
+            return "redirect:/showNewUserForm?emailError";
         }
 
         // Create new user's account
@@ -92,31 +95,38 @@ public class UserControllerWeb {
         }
 
         user.setRoles(roles);
-//        userRepository.save(user);
         userService.saveUser(user);
 
-//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+
 
         return "redirect:/admin/lecturerList";
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute("user") SignupRequest signUpRequest) {
-//        // save user to database
-//        userService.saveUser(user);
+    public String updateUser(@Valid @ModelAttribute("user") SignupRequest signUpRequest, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleRepository.findAll());
+            return "lecturerListUpdate";
+        }
 
-//        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-////            return ResponseEntity
-////                    .badRequest()
-////                    .body(new MessageResponse("Error: Email is already in use!"));
-//        }
+        Optional<User> userData = userRepository.findById(signUpRequest.getId());
+        User user;
+        if(signUpRequest.getPassword().isEmpty()) {
+            User _user = userData.get();
+            user = new User(
+                    signUpRequest.getId(),
+                    signUpRequest.getName(),
+                    signUpRequest.getEmail(),
+                    _user.getPassword());
 
-        // Create new user's account
-        User user = new User(
-                signUpRequest.getId(),
-                signUpRequest.getName(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        }
+        else{
+            user = new User(
+                    signUpRequest.getId(),
+                    signUpRequest.getName(),
+                    signUpRequest.getEmail(),
+                    encoder.encode(signUpRequest.getPassword()));
+        }
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -168,13 +178,6 @@ public class UserControllerWeb {
         for (Role role : user.getRoles())
         {
             System.out.println(role.getName().name());
-//            if(role.getName().name() == "ROLE_LECTURER"){
-////                roles
-//                Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-//                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                roles.add(adminRole);
-//            }
-
             switch (role.getName().name()) {
                 case "ROLE_ADMIN":
                     roles.add("ROLE_ADMIN");
@@ -188,9 +191,7 @@ public class UserControllerWeb {
             }
         }
 
-//        SignupRequest user1 = new SignupRequest(user.getEmail(), user.getName(), roles);
         SignupRequest user1 = new SignupRequest(id, user.getName(), user.getEmail(), roles);
-        // set user as a model attribute to pre-populate the form
         model.addAttribute("user", user1);
         model.addAttribute("allRoles", roleRepository.findAll());
         return "lecturerListUpdate";
@@ -203,27 +204,4 @@ public class UserControllerWeb {
         this.userService.deleteUserById(id);
         return "redirect:/admin/lecturerList";
     }
-
-
-//    @GetMapping("/page/{pageNo}")
-//    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
-//                                @RequestParam("sortField") String sortField,
-//                                @RequestParam("sortDir") String sortDir,
-//                                Model model) {
-//        int pageSize = 5;
-//
-//        Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
-//        List<User> listUsers = page.getContent();
-//
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("totalItems", page.getTotalElements());
-//
-//        model.addAttribute("sortField", sortField);
-//        model.addAttribute("sortDir", sortDir);
-//        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-//
-//        model.addAttribute("listUsers", listUsers);
-//        return "lecturerList";
-//    }
 }

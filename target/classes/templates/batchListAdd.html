@@ -34,36 +34,26 @@
                 <div class="field">
                     <div class="control">
                         <label class="label">Batch Code</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{batchCode}">
-
-
-                        <!--						<input-->
-                        <!--								class="input is-medium is-rounded"-->
-                        <!--								type="text"-->
-                        <!--								name="username"-->
-                        <!--								placeholder="Username"-->
-                        <!--								autocomplete="username"-->
-                        <!--								required-->
-                        <!--						/>-->
+                        <input class="input is-medium is-rounded" type="text" th:field="*{batchCode}" required>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Faculty</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{faculty}">
+                        <input class="input is-medium is-rounded" type="text" th:field="*{faculty}" required>
 
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Semester</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{semester}">
+                        <input class="input is-medium is-rounded" type="number" th:field="*{semester}" required>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Year</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{year}">
+                        <input class="input is-medium is-rounded" type="number" th:field="*{year}" required>
                     </div>
                 </div>
                 <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Add Batch</button>
@@ -75,49 +65,3 @@
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org"-->
-<!--	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">-->
-<!--<head>-->
-<!--	<meta charset="UTF-8"/>-->
-<!--	<title>TimetableIO</title>-->
-<!--	<meta name="viewport" content="width=device-width, initial-scale=1"/>-->
-<!--	<link-->
-<!--			href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"-->
-<!--			rel="stylesheet"-->
-<!--	/>-->
-<!--	<link-->
-<!--			rel="stylesheet"-->
-<!--			href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"-->
-<!--	/>-->
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container">-->
-<!--	<h1>Employee Management System</h1>-->
-<!--	<hr>-->
-<!--	<h2>Save Employee</h2>-->
-
-<!--	<form action="#" th:action="@{/saveEmployee}" th:object="${employee}"-->
-<!--		  method="POST">-->
-<!--		<input type="text" th:field="*{firstName}"-->
-<!--			   placeholder="Employee First Name" class="form-control mb-4 col-4">-->
-
-<!--		<input type="text" th:field="*{lastName}"-->
-<!--			   placeholder="Employee Last Name" class="form-control mb-4 col-4">-->
-
-<!--		<input type="text" th:field="*{email}"-->
-<!--			   placeholder="Employee Email" class="form-control mb-4 col-4">-->
-
-<!--		<button type="submit" class="btn btn-info col-2"> Save Employee</button>-->
-<!--	</form>-->
-
-<!--	<hr>-->
-
-<!--	<a th:href = "@{/}"> Back to Employee List</a>-->
-<!--</div>-->
-<!--</body>-->
-<!--<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>-->
-<!--</body>-->
-<!--</html>-->

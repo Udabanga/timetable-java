@@ -36,27 +36,34 @@
                     <div class="control">
                         <label class="label">Email</label>
                         <input class="input is-medium is-rounded" type="text" th:field="*{email}">
-
+                        <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Name</label>
                         <input class="input is-medium is-rounded" type="text" th:field="*{name}">
+                        <p class="help is-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Password</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{password}">
+                        <input class="input is-medium is-rounded" type="password" th:field="*{password}">
+                        <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                     </div>
                 </div>
-                <div class="field">
-                    <div class="checkbox" th:each="roleSelected: ${allRoles}">
-                        <label th:text="${roleSelected.name}"></label>
-                        <input th:field="*{role}" type="checkbox" th:checked="${user.role.contains(roleSelected.name)}" th:value="${roleSelected.name}"/>
-                    </div>
+                <div class="checkbox" th:each="roleSelected: ${allRoles}" >
+                    <label th:text="${roleSelected.name}"></label>
+                    <input th:field="*{role}" type="checkbox" th:value="${roleSelected.getName()}" />
+                    <p class="help is-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
                 </div>
+                <article th:if="${param.emailError}" class="message is-danger">
+                    <div class="message-header">
+                        <p>Error: Email already in use</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                </article>
                 <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Edit Lecturer</button>
             </form>
             <br/>

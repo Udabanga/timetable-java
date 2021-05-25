@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>TimetableIO</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link
             href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
             rel="stylesheet"
@@ -12,7 +13,7 @@
             rel="stylesheet"
             href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <section class="hero is-fullheight">
@@ -35,28 +36,39 @@
                     <div class="control">
                         <label class="label">Email</label>
                         <input class="input is-medium is-rounded" type="text" th:field="*{email}">
-
+                        <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Name</label>
                         <input class="input is-medium is-rounded" type="text" th:field="*{name}">
+                        <p class="help is-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="label">Password</label>
-                        <input class="input is-medium is-rounded" type="text" th:field="*{password}">
+                        <input class="input is-medium is-rounded" type="password" th:field="*{password}">
+                        <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                     </div>
                 </div>
                 <div class="field">
                     <div class="checkbox" th:each="roleSelected: ${allRoles}">
                         <label th:text="${roleSelected.name}"></label>
                         <input th:field="*{role}" type="checkbox" th:value="${roleSelected.getName()}"/>
+                        <p class="help is-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
                     </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
                 </div>
-                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Add Batch</button>
+                <article th:if="${param.emailError}" class="message is-danger">
+                    <div class="message-header">
+                        <p>Error: Email already in use</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                </article>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Add Batch
+                </button>
             </form>
             <br/>
         </div>

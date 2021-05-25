@@ -47,8 +47,7 @@
                 </ul>
             </div>
 
-            <!--            <button class="button is-primary" id="addButton">Add Batch</button>-->
-            <a class="button is-primary" th:href = "@{/showNewModuleForm}">Add Batch</a>
+            <a class="button is-primary" th:href = "@{/showNewModuleForm}">Add Module</a>
 
             <br/>
             <br/>
@@ -81,8 +80,6 @@
                     <button class="delete" data-bulma-modal="close" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
-                    <!--                    <form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}">-->
-                    <!--                    <form th:action="${add} ? @{/batches/add} : @{/batches/{batchId}/edit(batchId=${batch.id})}">-->
                     <div class="field">
                         <label class="label">Batch Name</label>
                         <div class="control">
