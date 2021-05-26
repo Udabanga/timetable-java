@@ -1,5 +1,8 @@
 package com.udayanga.timetableio.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -55,19 +58,19 @@ public class Schedule {
     private Date endTime;
 
 //    yyyy-MM-dd'T'HH:mm
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name="classroom_id")
     private Classroom classroom;
 
-    @ManyToOne
-    @JoinColumn(name="course_id")
+    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @JoinColumn(name="module_id")
     private Module module;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.REMOVE})
     @JoinTable(	name = "schedule_batch",
             joinColumns = @JoinColumn(name = "schdeule_id"),
             inverseJoinColumns = @JoinColumn(name = "batch_id"))

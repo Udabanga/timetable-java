@@ -1,7 +1,7 @@
 package com.udayanga.timetableio.model;
 
 public enum ERole {
-    ROLE_USER,
+    ROLE_ADMIN,
     ROLE_LECTURER,
-    ROLE_ADMIN
+    
 }

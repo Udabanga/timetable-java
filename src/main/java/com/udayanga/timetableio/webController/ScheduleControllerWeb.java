@@ -60,13 +60,13 @@ public class ScheduleControllerWeb {
         String role =  authResult.getAuthorities().toString();
 
         if(role.contains("ROLE_ADMIN")){
-            return "admin";
+            return "redirect:/admin";
         }
         else if(role.contains("ROLE_LECTURER")) {
-            return "lecturer";
+            return "redirect:/lecturer";
         }
         else{
-            return "login";
+            return "redirect:/login";
         }
     }
 

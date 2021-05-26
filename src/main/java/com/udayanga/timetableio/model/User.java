@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -37,16 +38,14 @@ public class User
 	@Size(min=8, message="Password should be 8 to 32 characters long")
 	private String password;
 
-	private String confirmPassword;
 
 
 
-	@ManyToMany(cascade=CascadeType.MERGE)
+	@ManyToMany(cascade = {CascadeType.REMOVE})
 	@JoinTable(
 			name="user_role",
 			joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
 			inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-	@NotEmpty
 	private Set<Role> roles;
 
 	public User(){}

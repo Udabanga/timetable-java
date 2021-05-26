@@ -7,10 +7,12 @@ import com.udayanga.timetableio.repository.RoleRepository;
 import com.udayanga.timetableio.repository.UserRepository;
 import com.udayanga.timetableio.payload.request.SignupRequest;
 import com.udayanga.timetableio.payload.response.MessageResponse;
+import com.udayanga.timetableio.security.AuthenticatedUser;
 import com.udayanga.timetableio.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,8 +69,8 @@ public class UserControllerWeb {
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+        if (strRoles.isEmpty()) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_LECTURER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
@@ -80,14 +82,9 @@ public class UserControllerWeb {
                         roles.add(adminRole);
 
                         break;
-                    case "ROLE_LECTURER":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_LECTURER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
 
-                        break;
                     default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                        Role userRole = roleRepository.findByName(ERole.ROLE_LECTURER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
@@ -103,7 +100,7 @@ public class UserControllerWeb {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@Valid @ModelAttribute("user") SignupRequest signUpRequest, BindingResult bindingResult, Model model) {
+    public String updateUser(@Valid @ModelAttribute("user") SignupRequest signUpRequest, BindingResult bindingResult, Model model, Authentication authResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allRoles", roleRepository.findAll());
             return "lecturerListUpdate";
@@ -132,7 +129,7 @@ public class UserControllerWeb {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            Role userRole = roleRepository.findByName(ERole.ROLE_LECTURER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
@@ -144,14 +141,9 @@ public class UserControllerWeb {
                         roles.add(adminRole);
 
                         break;
-                    case "ROLE_LECTURER":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_LECTURER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
 
-                        break;
                     default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                        Role userRole = roleRepository.findByName(ERole.ROLE_LECTURER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
@@ -163,7 +155,21 @@ public class UserControllerWeb {
 
 //        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 
-        return "redirect:/admin/lecturerList";
+        String role =  authResult.getAuthorities().toString();
+        User userLecturer = ((User) ((AuthenticatedUser) authResult.getPrincipal()).getUser());
+
+        if(role.contains("ROLE_ADMIN")){
+            return "redirect:/admin/lecturerList";
+        }
+        else if(role.contains("ROLE_LECTURER")) {
+            model.addAttribute("user", userLecturer);
+            return "redirect:/lecturer";
+        }
+        else{
+            return "redirect:/login";
+        }
+
+
     }
 
     @GetMapping("/showFormForUpdateUser/{id}")

@@ -65,25 +65,25 @@
 
             <h1 class="title is-4">Timetables</h1>
             <div class="block">
-                <button class="button is-large is-fullwidth level-left">
+                <a th:href="@{/lecturerTimetable}" class="button is-large is-fullwidth level-left">
                     <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                          width="100px"/>
-                    <span>View Classroom Timetable</span>
-                </button>
+                    <span>View Lecturer Timetable</span>
+                </a>
             </div>
             <div class="block">
-                <button class="button is-large is-fullwidth level-left">
+                <a th:href="@{/batchTimetable}" class="button is-large is-fullwidth level-left">
                     <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                          width="100px"/>
-                    <span>View Classroom Timetable</span>
-                </button>
+                    <span>View Batch Timetable</span>
+                </a>
             </div>
             <div class="block">
-                <button class="button is-large is-fullwidth level-left">
+                <a th:href="@{/classroomTimetable}" class="button is-large is-fullwidth level-left">
                     <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                          width="100px"/>
                     <span>View Classroom Timetable</span>
-                </button>
+                </a>
             </div>
         </div>
     </div>

@@ -137,6 +137,22 @@ public class PageController {
         return "viewBatchTimetable";
     }
 
+    @GetMapping("/classroomTimetable")
+    public String classroomTimetable(Model model) {
+        Search search = new Search();
+        model.addAttribute("search", search);
+        model.addAttribute("listClassrooms", classroomRepository.findAll());
+//        model.addAttribute("listSchedules", scheduleRepository.findAll());
+        return "viewClassroomTimetable";
+    }
+
+    @PostMapping("/searchClassroomSchedule")
+    public String searchClassroomSchedule(@ModelAttribute("search") Search search, Model model) {
+        model.addAttribute("listClassrooms", classroomRepository.findAll());
+        model.addAttribute("listSchedules", scheduleRepository.findByClassroomAndStartTimeGreaterThanAndEndTimeLessThan(search.getClassroom(), search.getStartDate(), search.getEndDate()));
+        return "viewClassroomTimetable";
+    }
+
     @GetMapping("/lecturerTimetable")
     public String lecturerTimetable(Model model) {
         Search search = new Search();

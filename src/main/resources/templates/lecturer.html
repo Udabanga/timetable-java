@@ -63,20 +63,7 @@
                         <div class="columns">
                             <div class="column is-narrow">
                                 <div class="" style="width: 75px;">
-                                    <p class="title is-6">First Name: </p>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="">
-                                    <p class="subtitle is-6" th:text="${user.name}"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="columns">
-                            <div class="column is-narrow">
-                                <div class="" style="width: 75px;">
-                                    <p class="title is-6">Last Name: </p>
+                                    <p class="title is-6">Name: </p>
                                 </div>
                             </div>
                             <div class="column">
@@ -86,6 +73,7 @@
                             </div>
                         </div>
                     </div>
+                    <a class="button is-success" th:href="@{/showFormForUpdateUser/{id}(id=${user.id})}">Edit</a>
                 </div>
 
                 <div class="column">
@@ -110,25 +98,25 @@
 
                     <h1 class="title is-4">Timetables</h1>
                     <div class="block">
-                        <button class="button is-large is-fullwidth level-left">
+                        <a th:href="@{/lecturerTimetable}" class="button is-large is-fullwidth level-left">
                             <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                                  width="100px"/>
-                            <span>View Classroom Timetable</span>
-                        </button>
+                            <span>View Lecturer Timetable</span>
+                        </a>
                     </div>
                     <div class="block">
-                        <button class="button is-large is-fullwidth level-left">
+                        <a th:href="@{/batchTimetable}" class="button is-large is-fullwidth level-left">
                             <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                                  width="100px"/>
-                            <span>View Classroom Timetable</span>
-                        </button>
+                            <span>View Batch Timetable</span>
+                        </a>
                     </div>
                     <div class="block">
-                        <button class="button is-large is-fullwidth level-left">
+                        <a th:href="@{/classroomTimetable}" class="button is-large is-fullwidth level-left">
                             <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                                  width="100px"/>
                             <span>View Classroom Timetable</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

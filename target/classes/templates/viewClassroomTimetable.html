@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Batch Timetable</title>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+  />
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="card-3d">
+      <h1 class="title">Classroom Timetable</h1>
+      <form action="#" th:action="@{/searchClassroomSchedule}" th:object="${search}" method="POST">
+        <div class="columns">
+          <div class="column">
+            <label class="label">Classroom</label>
+            <div class="control">
+              <div class="select">
+                <select th:field="*{classroom}"> <!-- th:field="*{batche}"-->
+                  <option th:each="classroom : ${listClassrooms}" th:text="${classroom.id + ' | ' + classroom.building + ' | Floor: ' + classroom.floor + ' | Room: ' + classroom.roomNumber + ' | ' + classroom.type}"
+                          th:value="${classroom.id}"></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <div class="control">
+                <label class="label">Start Date</label>
+                <input class="input is-medium is-rounded" type="date" th:field="*{startDate}"> <!-- th:field="*{startTime}" -->
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <div class="control">
+                <label class="label">End Date</label>
+                <input class="input is-medium is-rounded" type="date" th:field="*{endDate}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">Search Timetable</button>
+      </form>
+
+      <br/>
+      <table class="table is-fullwidth">
+        <thead>
+        <tr>
+          <th title="Date">Day</th>
+          <th title="Date">Date</th>
+          <th title="Start Time">Start Time</th>
+          <th title="End Time">End Time</th>
+          <th title="Classroom">Classroom</th>
+          <th title="Module">Module</th>
+          <th title="Lecturer">Lecturer</th>
+          <th title="Batches">Batches</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="schedule : ${listSchedules}">
+          <td th:text="${#dates.dayOfWeekName(schedule.date)}"></td>
+          <td th:text="${#dates.format(schedule.date, 'dd-MM-yyyy')}"></td>
+          <td th:text="${#dates.format(schedule.startTime, 'HH:mm')}"></td>
+          <td th:text="${#dates.format(schedule.endTime, 'HH:mm')}"></td>
+          <td th:text="${schedule.classroom.id}"></td>
+          <td th:text="${schedule.module.moduleName}"></td>
+          <td th:text="${schedule.user.name}"></td>
+          <td th:text="${schedule.batches}"></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="has-text-centered">
+        <a th:href="@{/}" href="index.html">Go Home</a>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

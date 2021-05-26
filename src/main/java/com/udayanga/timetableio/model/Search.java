@@ -9,6 +9,8 @@ public class Search {
 
     User user;
 
+    Classroom classroom;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date startDate;
 
@@ -18,11 +20,33 @@ public class Search {
     public Search() {
     }
 
+    public Search(Batch batch, User user, Classroom classroom, Date startDate, Date endDate) {
+        this.batch = batch;
+        this.user = user;
+        this.classroom = classroom;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Search(Batch batch, User user, Date startDate, Date endDate) {
         this.batch = batch;
         this.user = user;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Search(Classroom classroom, Date startDate, Date endDate) {
+        this.classroom = classroom;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
     public Batch getBatch() {
@@ -56,4 +80,6 @@ public class Search {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+
 }

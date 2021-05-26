@@ -11,9 +11,8 @@ create table if not exists persistent_logins (
 
 
 INSERT IGNORE INTO roles (id, name) VALUES
-(1, 'ROLE_USER'),
-(2, 'ROLE_LECTURER'),
-(3, 'ROLE_ADMIN')
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_LECTURER')
 ;
 
 INSERT IGNORE INTO users (id, email, password, name) VALUES
@@ -23,8 +22,7 @@ INSERT IGNORE INTO users (id, email, password, name) VALUES
 
 insert IGNORE into user_role(user_id, role_id) values
 (0,1),
-(0,2),
-(0,3)
+(0,2)
 ;
 
 
