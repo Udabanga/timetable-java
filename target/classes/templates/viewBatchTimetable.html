@@ -25,7 +25,7 @@
                         <div class="control">
                             <div class="select">
                                 <select th:field="*{batch}"> <!-- th:field="*{batche}"-->
-                                    <option th:each="batch : ${listBatches}" th:text="${batch.id}"
+                                    <option th:each="batch : ${listBatches}" th:text="${batch.batchCode}"
                                             th:value="${batch.id}"></option>
                                 </select>
                             </div>
