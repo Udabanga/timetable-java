@@ -129,6 +129,17 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getTutorialById(@PathVariable("id") String id) {
+        Optional<User> tutorialData = userRepository.findById(Integer.parseInt(id));
+
+        if (tutorialData.isPresent()) {
+            return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         Optional<User> userData = userRepository.findById(id);

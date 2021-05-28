@@ -38,7 +38,7 @@
 //	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
 //		// save employee to database
 //		employeeService.saveEmployee(employee);
-//		return "redirect:/admin/batchList";
+//		return "redirect:/admin/batch";
 //	}
 //
 //	@GetMapping("/showFormForUpdate/{id}")
@@ -58,7 +58,7 @@
 //		// call delete employee method
 //		this.employeeService.deleteEmployeeById(id);
 ////		this.batchService.deleteBatchById(id);
-//		return "redirect:/admin/batchList";
+//		return "redirect:/admin/batch";
 //	}
 //
 //

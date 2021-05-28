@@ -33,14 +33,14 @@
             </div>
             <div class="tabs is-boxed">
                 <ul>
-                    <li><a th:href="@{/admin/lecturerList}" href="lecturerList.html">Lecturers</a></li>
-                    <li><a th:href="@{/admin/batchList}" href="moduleList.html">Batches</a></li>
-                    <li><a th:href="@{/admin/moduleList}" href="classroomList.html">Modules</a></li>
+                    <li><a th:href="@{/admin/lecturer}" href="lecturerList.html">Lecturers</a></li>
+                    <li><a th:href="@{/admin/batch}" href="moduleList.html">Batches</a></li>
+                    <li><a th:href="@{/admin/module}" href="classroomList.html">Modules</a></li>
                     <li class="is-active"><a>Classrooms</a></li>
                 </ul>
             </div>
 
-            <a class="button is-primary" th:href = "@{/showNewClassroomForm}">Add Classroom</a>
+            <a class="button is-primary" th:href = "@{/admin/classroom/add}">Add Classroom</a>
 
             <br/>
             <br/>
@@ -64,7 +64,7 @@
                     <td th:text="${classroom.type}"></td>
 
                     <td>
-                        <a class="button is-success" th:href="@{/showFormForUpdateClassroom/{id}(id=${classroom.id})}">Edit</a>
+                        <a class="button is-success" th:href="@{/admin/classroom/update/{id}(id=${classroom.id})}">Edit</a>
                         <a class="button is-danger" th:href="@{/deleteClassroom/{id}(id=${classroom.id})}">Delete</a>
                     </td>
                 </tr>

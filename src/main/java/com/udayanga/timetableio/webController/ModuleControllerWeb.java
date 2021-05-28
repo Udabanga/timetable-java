@@ -12,8 +12,8 @@ public class ModuleControllerWeb {
     @Autowired
     private ModuleService moduleService;
 
-    @GetMapping("/showNewModuleForm")
-    public String showNewModuleForm(Model model) {
+    @GetMapping("/admin/module/add")
+    public String adminModuleAdd(Model model) {
         // create model attribute to bind form data
         Module module = new Module();
         model.addAttribute("module", module);
@@ -24,11 +24,11 @@ public class ModuleControllerWeb {
     public String saveModule(@ModelAttribute("module") Module module) {
         // save module to database
         moduleService.saveModule(module);
-        return "redirect:/admin/moduleList";
+        return "redirect:/admin/module";
     }
 
-    @GetMapping("/showFormForUpdateModule/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+    @GetMapping("/admin/module/update/{id}")
+    public String adminModuleUpdate(@PathVariable(value = "id") long id, Model model) {
 
         // get module from the service
         Module module = moduleService.getModuleById(id);
@@ -43,7 +43,7 @@ public class ModuleControllerWeb {
 
         // call delete module method
         this.moduleService.deleteModuleById(id);
-        return "redirect:/admin/moduleList";
+        return "redirect:/admin/module";
     }
 
 }

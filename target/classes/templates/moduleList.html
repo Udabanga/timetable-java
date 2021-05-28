@@ -40,14 +40,14 @@
             </div>
             <div class="tabs is-boxed">
                 <ul>
-                    <li><a th:href="@{/admin/lecturerList}" href="lecturerList.html">Lecturers</a></li>
-                    <li><a th:href="@{/admin/batchList}" href="moduleList.html">Batches</a></li>
+                    <li><a th:href="@{/admin/lecturer}" href="lecturerList.html">Lecturers</a></li>
+                    <li><a th:href="@{/admin/batch}" href="moduleList.html">Batches</a></li>
                     <li class="is-active"><a>Modules</a></li>
-                    <li><a th:href="@{/admin/classroomList}" href="classroomList.html">Classrooms</a></li>
+                    <li><a th:href="@{/admin/classroom}" href="classroomList.html">Classrooms</a></li>
                 </ul>
             </div>
 
-            <a class="button is-primary" th:href = "@{/showNewModuleForm}">Add Module</a>
+            <a class="button is-primary" th:href = "@{/admin/module/add}">Add Module</a>
 
             <br/>
             <br/>
@@ -64,7 +64,7 @@
                     <td th:text="${module.id}"></td>
                     <td th:text="${module.moduleName}"></td>
                     <td>
-                        <a class="button is-success" th:href="@{/showFormForUpdateModule/{id}(id=${module.id})}">Edit</a>
+                        <a class="button is-success" th:href="@{/admin/module/update/{id}(id=${module.id})}">Edit</a>
                         <a class="button is-danger" th:href="@{/deleteModule/{id}(id=${module.id})}">Delete</a>
                     </td>
                 </tr>

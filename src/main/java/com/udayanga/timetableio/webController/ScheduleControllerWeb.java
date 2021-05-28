@@ -31,8 +31,8 @@ public class ScheduleControllerWeb {
     @Autowired
     private BatchService batchService;
 
-    @GetMapping("/showNewScheduleForm")
-    public String showNewScheduleForm(Model model) {
+    @GetMapping("/lecturer/schedule/add")
+    public String lecturerScheduleAdd(Model model) {
         // create model attribute to bind form data
         Schedule schedule = new Schedule();
         model.addAttribute("schedule", schedule);
@@ -70,13 +70,17 @@ public class ScheduleControllerWeb {
         }
     }
 
-    @GetMapping("/showFormForUpdateSchedule/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+    @GetMapping("/lecturer/schedule/update/{id}")
+    public String lecturerScheduleUpdate(@PathVariable(value = "id") long id, Model model) {
 
         // get schedule from the service
         Schedule schedule = scheduleService.getScheduleById(id);
 
         // set schedule as a model attribute to pre-populate the form
+        model.addAttribute("listClassrooms", classroomService.getAllClassroomes());
+        model.addAttribute("listModules", moduleService.getAllModulees());
+        model.addAttribute("listLecturers", userService.getAllUseres());
+        model.addAttribute("listBatches", batchService.getAllBatches());
         model.addAttribute("schedule", schedule);
         return "scheduleListUpdate";
     }

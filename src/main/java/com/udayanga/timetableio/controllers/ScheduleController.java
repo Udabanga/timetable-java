@@ -1,8 +1,9 @@
 package com.udayanga.timetableio.controllers;
 
-import com.udayanga.timetableio.model.Schedule;
+import com.udayanga.timetableio.model.*;
 import com.udayanga.timetableio.model.Schedule;
 import com.udayanga.timetableio.repository.ScheduleRepository;
+import com.udayanga.timetableio.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http:/localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class    ScheduleController {
@@ -20,6 +21,8 @@ public class    ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
+    @Autowired
+    UserRepository userRepository;
 
 
     @GetMapping("/schedules")
@@ -47,6 +50,55 @@ public class    ScheduleController {
             return new ResponseEntity<>(scheduleData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/schedules/view/lecturer/{id}")
+    public ResponseEntity<List<Schedule>> getScheduleForLecturer(@PathVariable("id") int id) {
+        Optional<User> userData = userRepository.findById(id);
+
+        List<Schedule> scheduleData = scheduleRepository.findByUser(userData.get());
+
+        if (scheduleData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        } else {
+            return new ResponseEntity<>(scheduleData, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/schedules/lecturer")
+    public ResponseEntity<List<Schedule>> getScheduleByLecturer(@RequestBody List<Search> search) {
+        List<Schedule> scheduleData = scheduleRepository.findByUserAndStartTimeGreaterThanAndEndTimeLessThan(search.get(0).getUser(), search.get(0).getStartDate(), search.get(0).getEndDate());
+
+        if (scheduleData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        } else {
+            return new ResponseEntity<>(scheduleData, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/schedules/classroom")
+    public ResponseEntity<List<Schedule>> getScheduleByClassroom(@RequestBody Search search) {
+        List<Schedule> scheduleData = scheduleRepository.findByClassroomAndStartTimeGreaterThanAndEndTimeLessThan(search.getClassroom(), search.getStartDate(), search.getEndDate());
+
+        if (scheduleData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(scheduleData, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/schedules/batch")
+    public ResponseEntity<List<Schedule>> getScheduleByBatch(@RequestBody List<Search> search) {
+        List<Schedule> scheduleData = scheduleRepository.findByBatchesAndStartTimeGreaterThanAndEndTimeLessThan(search.get(0).getBatch(), search.get(0).getStartDate(), search.get(0).getEndDate());
+
+        if (scheduleData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(scheduleData, HttpStatus.OK);
         }
     }
 

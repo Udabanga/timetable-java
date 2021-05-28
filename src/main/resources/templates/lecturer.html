@@ -73,14 +73,14 @@
                             </div>
                         </div>
                     </div>
-                    <a class="button is-success" th:href="@{/showFormForUpdateUser/{id}(id=${user.id})}">Edit</a>
+                    <a class="button is-success" th:href="@{/admin/lecturer/update/{id}(id=${user.id})}">Edit</a>
                 </div>
 
                 <div class="column">
                     <h1 class="title is-4">Items</h1>
                     <div class="columns">
                         <div class="column">
-                            <a class="button" th:href = "@{/showNewScheduleForm}">
+                            <a class="button" th:href = "@{/lecturer/schedule/add}">
                                 <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
                                      width="100px"/>
                                 <p>Create Lecture Schedule</p>

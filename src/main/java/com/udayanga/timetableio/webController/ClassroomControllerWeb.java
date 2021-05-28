@@ -15,8 +15,8 @@ public class ClassroomControllerWeb {
     @Autowired
     private ClassroomService classroomService;
 
-    @GetMapping("/showNewClassroomForm")
-    public String showNewClassroomForm(Model model) {
+    @GetMapping("/admin/classroom/add")
+    public String adminClassroomAdd(Model model) {
         // create model attribute to bind form data
         Classroom classroom = new Classroom();
         model.addAttribute("classroom", classroom);
@@ -27,11 +27,11 @@ public class ClassroomControllerWeb {
     public String saveClassroom(@ModelAttribute("classroom") Classroom classroom) {
         // save classroom to database
         classroomService.saveClassroom(classroom);
-        return "redirect:/admin/classroomList";
+        return "redirect:/admin/classroom";
     }
 
-    @GetMapping("/showFormForUpdateClassroom/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+    @GetMapping("/admin/classroom/update/{id}")
+    public String adminClassroomUpdate(@PathVariable(value = "id") long id, Model model) {
 
         // get classroom from the service
         Classroom classroom = classroomService.getClassroomById(id);
@@ -46,6 +46,6 @@ public class ClassroomControllerWeb {
 
         // call delete classroom method
         this.classroomService.deleteClassroomById(id);
-        return "redirect:/admin/classroomList";
+        return "redirect:/admin/classroom";
     }
 }

@@ -33,15 +33,15 @@
             </div>
             <div class="tabs is-boxed">
                 <ul>
-                    <li><a th:href="@{/admin/lecturerList}" href="lecturerList.html">Lecturers</a></li>
+                    <li><a th:href="@{/admin/lecturer}" href="lecturerList.html">Lecturers</a></li>
                     <li class="is-active"><a>Batches</a></li>
-                    <li><a th:href="@{/admin/moduleList}" href="moduleList.html">Modules</a></li>
-                    <li><a th:href="@{/admin/classroomList}" href="classroomList.html">Classrooms</a></li>
+                    <li><a th:href="@{/admin/module}" href="moduleList.html">Modules</a></li>
+                    <li><a th:href="@{/admin/classroom}" href="classroomList.html">Classrooms</a></li>
                 </ul>
             </div>
 
             <!--            <button class="button is-primary" id="addButton">Add Batch</button>-->
-            <a class="button is-primary" th:href = "@{/showNewBatchForm}">Add Batch</a>
+            <a class="button is-primary" th:href = "@{/admin/batch/add}">Add Batch</a>
 
             <br/>
             <br/>
@@ -65,7 +65,7 @@
                     <td th:text="${batch.semester}"></td>
                     <td th:text="${batch.year}"></td>
                     <td>
-                        <a class="button is-success" th:href="@{/showFormForUpdateBatch/{id}(id=${batch.id})}">Edit</a>
+                        <a class="button is-success" th:href="@{/admin/batch/update/{id}(id=${batch.id})}">Edit</a>
                         <a class="button is-danger" th:href="@{/deleteBatch/{id}(id=${batch.id})}">Delete</a>
                     </td>
                 </tr>
@@ -243,10 +243,10 @@
 <!--            </div>-->
 <!--            <div class="tabs is-boxed">-->
 <!--                <ul>-->
-<!--                    <li><a th:href="@{/admin/lecturerList}" href="lecturerList.html">Lecturers</a></li>-->
+<!--                    <li><a th:href="@{/admin/lecturer}" href="lecturerList.html">Lecturers</a></li>-->
 <!--                    <li class="is-active"><a>Batches</a></li>-->
-<!--                    <li><a th:href="@{/admin/moduleList}" href="moduleList.html">Modules</a></li>-->
-<!--                    <li><a th:href="@{/admin/classroomList}" href="classroomList.html">Classrooms</a></li>-->
+<!--                    <li><a th:href="@{/admin/module}" href="moduleList.html">Modules</a></li>-->
+<!--                    <li><a th:href="@{/admin/classroom}" href="classroomList.html">Classrooms</a></li>-->
 <!--                </ul>-->
 <!--            </div>-->
 

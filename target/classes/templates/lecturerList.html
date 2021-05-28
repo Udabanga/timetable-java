@@ -34,13 +34,13 @@
             <div class="tabs is-boxed">
                 <ul>
                     <li class="is-active"><a>Lecturers</a></li>
-                    <li><a th:href="@{/admin/batchList}" href="lecturerList.html">Batches</a></li>
-                    <li><a th:href="@{/admin/moduleList}" href="moduleList.html">Modules</a></li>
-                    <li><a th:href="@{/admin/classroomList}" href="classroomList.html">Classrooms</a></li>
+                    <li><a th:href="@{/admin/batch}" href="lecturerList.html">Batches</a></li>
+                    <li><a th:href="@{/admin/module}" href="moduleList.html">Modules</a></li>
+                    <li><a th:href="@{/admin/classroom}" href="classroomList.html">Classrooms</a></li>
                 </ul>
             </div>
 
-            <a class="button is-primary" th:href = "@{/showNewUserForm}">Add Lecturer</a>
+            <a class="button is-primary" th:href = "@{/admin/lecturer/add}">Add Lecturer</a>
 
             <br/>
             <br/>
@@ -62,7 +62,7 @@
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.roles}"></td>
                     <td>
-                        <a class="button is-success" th:href="@{/showFormForUpdateUser/{id}(id=${user.id})}">Edit</a>
+                        <a class="button is-success" th:href="@{/admin/lecturer/update/{id}(id=${user.id})}">Edit</a>
                         <a class="button is-danger" th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
                     </td>
                 </tr>

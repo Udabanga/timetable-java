@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8" />
+  <title>TimetableIO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+  />
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="card-3d">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <a class="button is-rounded is-text" th:href="@{/admin}" href="admin.html">
+              <ion-icon size="large" name="chevron-back-circle-outline"/>
+            </a>
+          </div>
+          <div class="level-item">
+            <h1 class="title">Edit Module</h1>
+          </div>
+        </div>
+      </div>
+      <form action="#" th:action="@{/saveSchedule}" th:object="${schedule}" method="POST">
+
+
+        <input type="hidden" th:field="*{id}" />
+        <div class="field">
+          <div class="control">
+            <label class="label">Date</label>
+            <input class="input is-medium is-rounded" type="date" th:field="*{stringDate}" required>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <label class="label">Start Time</label>
+            <input class="input is-medium is-rounded" type="time" th:field="*{stringStartTime}" required>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <label class="label">End Time</label>
+            <input class="input is-medium is-rounded" type="time" th:field="*{stringEndTime}" required>
+          </div>
+        </div>
+
+        <label class="label">Classroom</label>
+        <div class="control">
+          <div class="select">
+            <select th:field="*{classroom}" required>
+              <option th:each="classroom : ${listClassrooms}" th:value="${classroom.id}" th:text="${classroom.id + ' | ' + classroom.building + ' | Floor: ' + classroom.floor + ' | Room: ' + classroom.roomNumber + ' | ' + classroom.type}"></option>
+            </select>
+          </div>
+        </div>
+        <label class="label">Course</label>
+        <div class="control">
+          <div class="select">
+            <select th:field="*{module}" required>
+              <option th:each="module : ${listModules}" th:text="${module.moduleName}" th:value="${module.id}"></option>
+            </select>
+          </div>
+        </div>
+        <label class="label">Lecturer</label>
+        <div class="control">
+          <div class="select">
+            <select th:field="*{user}" required>
+              <option th:each="lecturer : ${listLecturers}" th:text="${lecturer.name}" th:value="${lecturer.id}"></option>
+            </select>
+          </div>
+        </div>
+        <label class="label">Batches</label>
+        <div class="control">
+          <div class="select is-multiple">
+            <select multiple size="8" th:field="*{batches}" required>
+              <option th:each="batch : ${listBatches}" th:text="${batch.batchCode}" th:value="${batch.id}"></option>
+            </select>
+          </div>
+        </div>
+        <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit"> Update Schedule</button>
+      </form>
+      <br/>
+    </div>
+  </div>
+</section>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>

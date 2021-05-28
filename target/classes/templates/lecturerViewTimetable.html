@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <a class="button is-primary" th:href = "@{/showNewScheduleForm}">Add Schedule</a>
+      <a class="button is-primary" th:href = "@{/lecturer/schedule/add}">Add Schedule</a>
 
       <br/>
       <br/>
@@ -62,7 +62,7 @@
           <td th:text="${schedule.module?.moduleName}"></td>
           <td th:text="${schedule.user?.name}"></td>
           <td>
-            <a class="button is-success" th:href="@{/showFormForUpdateSchedule/{id}(id=${schedule.id})}">Edit</a>
+            <a class="button is-success" th:href="@{/lecturer/schedule/update/{id}(id=${schedule.id})}">Edit</a>
             <a class="button is-danger" th:href="@{/deleteSchedule/{id}(id=${schedule.id})}">Delete</a>
           </td>
         </tr>

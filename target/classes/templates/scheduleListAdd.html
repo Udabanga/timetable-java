@@ -54,7 +54,7 @@
                 <div class="control">
                     <div class="select">
                        <select th:field="*{classroom}" required> 
-                            <option th:each="classroom : ${listClassrooms}" th:text="${classroom.id}" th:value="${classroom.id}"></option>
+                            <option th:each="classroom : ${listClassrooms}" th:value="${classroom.id}" th:text="${classroom.id + ' | ' + classroom.building + ' | Floor: ' + classroom.floor + ' | Room: ' + classroom.roomNumber + ' | ' + classroom.type}"></option>
                         </select>
                     </div>
                 </div>

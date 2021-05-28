@@ -67,13 +67,13 @@ public class PageController {
         return "admin";
     }
 
-//	@GetMapping("/admin/lecturerList")
+//	@GetMapping("/admin/lecturer")
 //	public String lecturerList()
 //	{
 //		return "lecturerList";
 //	}
 
-    @GetMapping("/admin/lecturerList")
+    @GetMapping("/admin/lecturer")
     public String lecturerList(Model model) {
         model.addAttribute("listUsers", userRepository.findAll());
         User user = new User();
@@ -81,7 +81,7 @@ public class PageController {
         return "lecturerList";
     }
 
-    @GetMapping("/admin/batchList")
+    @GetMapping("/admin/batch")
     public String batchList(Model model) {
         model.addAttribute("listBatches", batchRepository.findAll());
         Batch batch = new Batch();
@@ -89,7 +89,7 @@ public class PageController {
         return "batchList";
     }
 
-    @GetMapping("/admin/moduleList")
+    @GetMapping("/admin/module")
     public String moduleList(Model model) {
         model.addAttribute("listModules", moduleRepository.findAll());
         Module modules = new Module();
@@ -97,7 +97,7 @@ public class PageController {
         return "moduleList";
     }
 
-    @GetMapping("/admin/classroomList")
+    @GetMapping("/admin/classroom")
     public String classroomList(Model model) {
         model.addAttribute("listClassrooms", classroomRepository.findAll());
         Classroom classrooms = new Classroom();

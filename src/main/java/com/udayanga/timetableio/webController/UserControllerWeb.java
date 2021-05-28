@@ -38,8 +38,8 @@ public class UserControllerWeb {
 
     @Autowired
     PasswordEncoder encoder;
-    @GetMapping("/showNewUserForm")
-    public String showNewUserForm(Model model) {
+    @GetMapping("/admin/lecturer/add")
+    public String adminUserAdd(Model model) {
         // create model attribute to bind form data
 //        User user = new User();
         SignupRequest user = new SignupRequest();
@@ -57,7 +57,7 @@ public class UserControllerWeb {
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return "redirect:/showNewUserForm?emailError";
+            return "redirect:/admin/lecturer/add?emailError";
         }
 
         // Create new user's account
@@ -96,7 +96,7 @@ public class UserControllerWeb {
 
 
 
-        return "redirect:/admin/lecturerList";
+        return "redirect:/admin/lecturer";
     }
 
     @PostMapping("/updateUser")
@@ -159,7 +159,7 @@ public class UserControllerWeb {
         User userLecturer = ((User) ((AuthenticatedUser) authResult.getPrincipal()).getUser());
 
         if(role.contains("ROLE_ADMIN")){
-            return "redirect:/admin/lecturerList";
+            return "redirect:/admin/lecturer";
         }
         else if(role.contains("ROLE_LECTURER")) {
             model.addAttribute("user", userLecturer);
@@ -172,8 +172,8 @@ public class UserControllerWeb {
 
     }
 
-    @GetMapping("/showFormForUpdateUser/{id}")
-    public String showFormForUpdate(@PathVariable( value = "id") int id, Model model) {
+    @GetMapping("/admin/lecturer/update/{id}")
+    public String adminUserUpdate(@PathVariable( value = "id") int id, Model model) {
 
         // get user from the service
         User user = userService.getUserById(id);
@@ -208,6 +208,6 @@ public class UserControllerWeb {
 
         // call delete user method
         this.userService.deleteUserById(id);
-        return "redirect:/admin/lecturerList";
+        return "redirect:/admin/lecturer";
     }
 }

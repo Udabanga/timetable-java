@@ -1,5 +1,6 @@
 package com.udayanga.timetableio.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,9 +12,11 @@ public class Search {
 
     Classroom classroom;
 
+    @JsonFormat(pattern="EEE MMM dd HH:mm:ss zzzz yyyy")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date startDate;
 
+    @JsonFormat(pattern="EEE MMM dd HH:mm:ss zzzz yyyy")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date endDate;
 

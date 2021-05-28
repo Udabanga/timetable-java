@@ -15,8 +15,8 @@ public class BatchControllerWeb {
     @Autowired
     private BatchService batchService;
 
-    @GetMapping("/showNewBatchForm")
-    public String showNewBatchForm(Model model) {
+    @GetMapping("/admin/batch/add")
+    public String adminBatchAdd(Model model) {
         // create model attribute to bind form data
         Batch batch = new Batch();
         model.addAttribute("batch", batch);
@@ -27,11 +27,11 @@ public class BatchControllerWeb {
     public String saveBatch(@ModelAttribute("batch") Batch batch) {
         // save batch to database
         batchService.saveBatch(batch);
-        return "redirect:/admin/batchList";
+        return "redirect:/admin/batch";
     }
 
-    @GetMapping("/showFormForUpdateBatch/{id}")
-    public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
+    @GetMapping("/admin/batch/update/{id}")
+    public String adminBatchUpdate(@PathVariable ( value = "id") long id, Model model) {
 
         // get batch from the service
         Batch batch = batchService.getBatchById(id);
@@ -46,6 +46,6 @@ public class BatchControllerWeb {
 
         // call delete batch method
         this.batchService.deleteBatchById(id);
-        return "redirect:/admin/batchList";
+        return "redirect:/admin/batch";
     }
 }
