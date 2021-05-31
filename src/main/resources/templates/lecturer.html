@@ -17,7 +17,7 @@
 <body>
 <section class="hero is-fullheight">
     <div class="hero-body">
-        <div class="card-3d">
+        <div class="card-3d width-50">
 
             <div>
                 <div class="level">
@@ -80,15 +80,15 @@
                     <h1 class="title is-4">Items</h1>
                     <div class="columns">
                         <div class="column">
-                            <a class="button" th:href = "@{/lecturer/schedule/add}">
-                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                            <a class="button verticalButton" th:href = "@{/lecturer/schedule/add}">
+                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/icons/form.png}"
                                      width="100px"/>
-                                <p>Create Lecture Schedule</p>
+                                <p>Lecture Schedule</p>
                             </a>
                         </div>
                         <div class="column">
-                            <a class="button" th:href = "@{/lecturer/schedule}">
-                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                            <a class="button verticalButton" th:href = "@{/lecturer/schedule}">
+                                <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/icons/timetable.png}"
                                      width="100px"/>
                                 <p>Your Timetable</p>
                             </a>
@@ -98,24 +98,24 @@
 
                     <h1 class="title is-4">Timetables</h1>
                     <div class="block">
-                        <a th:href="@{/lecturerTimetable}" class="button is-large is-fullwidth level-left">
-                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                        <a th:href="@{/lecturerTimetable}" class="button is-large is-fullwidth level-left button-height-100px">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/icons/timetable.png}"
                                  width="100px"/>
-                            <span>View Lecturer Timetable</span>
+                            <span>Lecturer Timetable</span>
                         </a>
                     </div>
                     <div class="block">
-                        <a th:href="@{/batchTimetable}" class="button is-large is-fullwidth level-left">
-                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                        <a th:href="@{/batchTimetable}" class="button is-large is-fullwidth level-left button-height-100px">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/icons/timetable.png}"
                                  width="100px"/>
-                            <span>View Batch Timetable</span>
+                            <span>Batch Timetable</span>
                         </a>
                     </div>
                     <div class="block">
-                        <a th:href="@{/classroomTimetable}" class="button is-large is-fullwidth level-left">
-                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/logo.svg}"
+                        <a th:href="@{/classroomTimetable}" class="button is-large is-fullwidth level-left button-height-100px">
+                            <img alt="logo" src="../static/images/logo.svg" th:src="@{/images/icons/timetable.png}"
                                  width="100px"/>
-                            <span>View Classroom Timetable</span>
+                            <span>Classroom Timetable</span>
                         </a>
                     </div>
                 </div>

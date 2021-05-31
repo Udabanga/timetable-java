@@ -40,8 +40,6 @@ public class UserControllerWeb {
     PasswordEncoder encoder;
     @GetMapping("/admin/lecturer/add")
     public String adminUserAdd(Model model) {
-        // create model attribute to bind form data
-//        User user = new User();
         SignupRequest user = new SignupRequest();
         model.addAttribute("user", user);
 
@@ -55,17 +53,13 @@ public class UserControllerWeb {
             model.addAttribute("allRoles", roleRepository.findAll());
             return "lecturerListAdd";
         }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return "redirect:/admin/lecturer/add?emailError";
         }
-
-        // Create new user's account
         User user = new User(
                 signUpRequest.getName(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
@@ -90,12 +84,8 @@ public class UserControllerWeb {
                 }
             });
         }
-
         user.setRoles(roles);
         userService.saveUser(user);
-
-
-
         return "redirect:/admin/lecturer";
     }
 

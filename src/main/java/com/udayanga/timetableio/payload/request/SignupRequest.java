@@ -27,6 +27,12 @@ public class SignupRequest {
     public SignupRequest() {
     }
 
+    public SignupRequest(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public SignupRequest(String name, String email, Set<String> role) {
         this.name = name;
         this.email = email;

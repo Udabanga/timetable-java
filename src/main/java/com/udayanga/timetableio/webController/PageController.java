@@ -42,13 +42,11 @@ public class PageController {
     private ScheduleRepository scheduleRepository;
 
 
-//	private Authentication userAuth;
 
     @RequestMapping("/success")
     public void loginPageRedirect(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
 
         String role = authResult.getAuthorities().toString();
-//		userAuth = authResult;
 
         if (role.contains("ROLE_ADMIN")) {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin"));

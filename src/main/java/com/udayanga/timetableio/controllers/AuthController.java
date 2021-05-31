@@ -57,24 +57,21 @@ public class AuthController {
 
                 return new MessageResponse(userDetails.getUser().getName(), userDetails.getUser().getEmail(), userDetails.getUser().getId(), roles);
             } catch (Exception e) {
-                return new MessageResponse(e.getMessage());
-//                return new MessageResponse("Error: Incorrect Password!");
+//                return new MessageResponse(e.getMessage());
+                return new MessageResponse("Error: Incorrect Password!");
             }
         } else {
             return new MessageResponse("Error: Username does not exit!");
         }
-
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
         // Create new user's account
         User user = new User(
                 signUpRequest.getName(),
@@ -105,10 +102,8 @@ public class AuthController {
                 }
             });
         }
-
         user.setRoles(roles);
         userRepository.save(user);
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
@@ -130,11 +125,11 @@ public class AuthController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getTutorialById(@PathVariable("id") String id) {
-        Optional<User> tutorialData = userRepository.findById(Integer.parseInt(id));
+    public ResponseEntity<User> getUserById(@PathVariable("id") String id) {
+        Optional<User> userData = userRepository.findById(Integer.parseInt(id));
 
-        if (tutorialData.isPresent()) {
-            return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

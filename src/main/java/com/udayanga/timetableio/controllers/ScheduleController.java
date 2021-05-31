@@ -16,7 +16,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http:/localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class    ScheduleController {
+public class ScheduleController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
